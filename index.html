@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@0.3.2/dist/mindar.prod.js"></script>
+    <script>
+      AFRAME.registerComponent("videohandler", {
+        init: function() {
+          
+          this.el.addEventListener("targetFound", event => {
+            console.log("target found");
+            const vid = document.querySelector("#demovideo");
+            vid.play();
+            console.log("test1");
+          });
+
+          this.el.addEventListener("targetLost", event => {
+            console.log("target lost");
+            const vid = document.querySelector("#demovideo");
+            vid.pause();
+            console.log("test2");
+          });
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <a-scene videohandler mindar="imageTargetSrc: https://cdn.glitch.com/cf8164e9-6399-486f-b09e-1e3770892e70%2F1a80ddde-7b6d-438d-812b-8c71836d2778.targets.mind?v=1626533617404" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+      <a-assets>
+        <video id="demovideo" src="https://cdn.glitch.com/cf8164e9-6399-486f-b09e-1e3770892e70%2Fvideo_task3.mp4?v=1626516448964"></video>
+        <img id="card" src="https://cdn.glitch.com/cf8164e9-6399-486f-b09e-1e3770892e70%2Fdemo_img.png?v=1626533570693"/>
+      </a-assets>
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+      <a-entity id="mytarget" mindar-image-target="targetIndex:0">
+        <a-video src="#demovideo" width="1" height="0.552" position="0 0 0" webkit-playsinline playsinline ></a-video>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
